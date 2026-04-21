@@ -13,7 +13,6 @@ import os
 def test_w3schools_python():
     """Automated test for W3Schools Python content"""
     
-    # Create screenshots directory
     screenshots_dir = "screenshots"
     if not os.path.exists(screenshots_dir):
         os.makedirs(screenshots_dir)
@@ -26,13 +25,12 @@ def test_w3schools_python():
         page = browser.new_page()
         
         try:
-            # Step 1: Open W3Schools
             print("Step 1: Opening https://www.w3schools.com/")
             page.goto("https://www.w3schools.com/", wait_until="networkidle")
             page.wait_for_timeout(1000)
             print(" Homepage loaded successfully")
             
-            # Step 2: Navigate to Python section
+           
             print("Step 2: Navigating to Python tutorial...")
             page.goto("https://www.w3schools.com/python/", wait_until="networkidle")
             page.wait_for_timeout(2000)
