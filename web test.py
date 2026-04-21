@@ -30,30 +30,30 @@ def test_w3schools_python():
             print("Step 1: Opening https://www.w3schools.com/")
             page.goto("https://www.w3schools.com/", wait_until="networkidle")
             page.wait_for_timeout(1000)
-            print("✓ Homepage loaded successfully")
+            print(" Homepage loaded successfully")
             
             # Step 2: Navigate to Python section
             print("Step 2: Navigating to Python tutorial...")
             page.goto("https://www.w3schools.com/python/", wait_until="networkidle")
             page.wait_for_timeout(2000)
-            print("✓ Python section loaded successfully")
+            print(" Python section loaded successfully")
             
             # Step 3: Take screenshot
             print(f"Step 3: Capturing screenshot...")
             page.screenshot(path=screenshot_path, full_page=False)
-            print(f"✓ Screenshot saved: {screenshot_path}")
+            print(f"Screenshot saved: {screenshot_path}")
             
             # Log page details
             page_title = page.title()
             page_url = page.url
-            print(f"\n📄 Page Title: {page_title}")
-            print(f"📍 Page URL: {page_url}")
-            print("\n✅ Test completed successfully!")
+            print(f"\n Page Title: {page_title}")
+            print(f" Page URL: {page_url}")
+            print("\n Test completed successfully!")
             
             return True
             
         except Exception as e:
-            print(f"❌ Error: {str(e)}")
+            print(f"Error: {str(e)}")
             return False
         finally:
             browser.close()
