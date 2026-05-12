@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Admission Application</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto; padding: 20px; background: #f4f4f4; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 150px; }
+        button { background: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; display: block; width: 100%; font-size: 16px; }
+        button:hover { background: #0056b3; }
+        .msg { margin-top: 20px; padding: 10px; border-radius: 4px; display: none; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>College Admission Form</h1>
+        <form id="admissionForm">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="date_of_birth">Date of Birth</label>
+                <input type="date" id="date_of_birth" required>
+            </div>
+            <div class="form-group">
+                <label for="high_school">High School</label>
+                <input type="text" id="high_school" required>
+            </div>
+            <div class="form-group">
+                <label for="gpa">High School GPA</label>
+                <input type="number" step="0.01" id="gpa" required>
+            </div>
+            <div class="form-group">
+                <label for="major">Intended Major</label>
+                <select id="major" required>
+                    <option value="">Select a major</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Biology">Biology</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Business">Business</option>
+                    <option value="Art">Art</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="essay">Personal Statement (Essay)</label>
+                <textarea id="essay" required placeholder="Tell us about yourself and your goals..."></textarea>
+            </div>
+            <button type="submit">Submit Application</button>
+        </form>
+        <div id="message" class="msg"></div>
+    </div>
+
+    <script>
+        document.getElementById('admissionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const messageDiv = document.getElementById('message');
+            messageDiv.style.display = 'none';
+
+            const formData = {
+                first_name: document.getElementById('first_name').value,
+                last_name: document.getElementById('last_name').value,
+                email: document.getElementById('email').value,
+                date_of_birth: document.getElementById('date_of_birth').value,
+                high_school: document.getElementById('high_school').value,
+                gpa: document.getElementById('gpa').value,
+                major: document.getElementById('major').value,
+                essay: document.getElementById('essay').value
+            };
+
+            try {
+                const response = await fetch('/api/apply', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    messageDiv.textContent = 'Application submitted successfully! Application ID: ' + result.id;
+                    messageDiv.className = 'msg success';
+                    messageDiv.style.display = 'block';
+                    document.getElementById('admissionForm').reset();
+                } else {
+                    throw new Error(result.error || 'Submission failed');
+                }
+            } catch (err) {
+                messageDiv.textContent = 'Error: ' + err.message;
+                messageDiv.className = 'msg error';
+                messageDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
