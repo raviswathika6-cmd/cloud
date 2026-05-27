@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+    <title th:text="${watch.brand + ' ' + watch.model + ' - LUXE WATCHES'}">Watch Details</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <section class="section">
+            <div class="container">
+                <div class="product-detail">
+                    <div class="product-detail-image">
+                        <img th:src="${watch.imageUrl}" th:alt="${watch.brand + ' ' + watch.model}">
+                    </div>
+                    <div class="product-detail-info">
+                        <span class="product-brand" th:text="${watch.brand}">Brand</span>
+                        <h1 class="product-title" th:text="${watch.model}">Model Name</h1>
+                        <div class="product-meta">
+                            <span class="badge" th:text="${watch.category}">Category</span>
+                            <span class="stock" th:if="${watch.stockQuantity > 0}">
+                                <i class="fas fa-check-circle"></i> In Stock (<span th:text="${watch.stockQuantity}">0</span> available)
+                            </span>
+                            <span class="stock out" th:unless="${watch.stockQuantity > 0}">
+                                <i class="fas fa-times-circle"></i> Out of Stock
+                            </span>
+                        </div>
+                        <p class="product-description" th:text="${watch.description}">Description</p>
+                        <div class="product-price-lg" th:text="'$' + ${#numbers.formatDecimal(watch.price, 1, 2)}">$0.00</div>
+                        <div class="product-actions">
+                            <form th:if="${watch.stockQuantity > 0}" th:action="@{/cart/add/{id}(id=${watch.id})}" method="post">
+                                <div class="quantity-selector">
+                                    <label>Quantity:</label>
+                                    <input type="number" name="quantity" value="1" min="1" max="10">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-shopping-bag"></i> Add to Cart
+                                </button>
+                            </form>
+                            <button th:unless="${watch.stockQuantity > 0}" class="btn btn-disabled btn-lg" disabled>
+                                Out of Stock
+                            </button>
+                        </div>
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-truck"></i>
+                                <div>
+                                    <strong>Free Shipping</strong>
+                                    <span>On orders over $500</span>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>2 Year Warranty</strong>
+                                    <span>Complete coverage</span>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-undo"></i>
+                                <div>
+                                    <strong>30-Day Returns</strong>
+                                    <span>Money-back guarantee</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
