@@ -41,6 +41,28 @@ class Application(db.Model):
 def index():
     return send_from_directory('.', 'index.html')
 
+@app.route('/login')
+def login():
+    return send_from_directory('.', 'login.html')
+
+@app.route('/api/login', methods=['POST'])
+def api_login():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    
+    # Simple authentication (replace with real auth logic)
+    if email and password:
+        # For demo purposes, accept any credentials
+        # Add your actual authentication logic here
+        return jsonify({
+            "message": "Login successful",
+            "token": "demo_token_" + email,
+            "user": {"email": email}
+        }), 200
+    else:
+        return jsonify({"error": "Invalid credentials"}), 401
+
 @app.route('/api/apply', methods=['POST'])
 def submit_application():
     data = request.json
