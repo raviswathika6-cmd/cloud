@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - College Admission Portal</title>
+    <link rel="stylesheet" href="/static/css/shared.css">
     <style>
-        * {
-            box-sizing: border-box;
-        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
-            padding: 20px;
         }
         .login-container {
             background: white;
@@ -46,42 +40,12 @@
             height: 32px;
             fill: white;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin: 0 0 10px 0;
-            font-size: 24px;
-        }
+        h1 { margin: 0 0 10px 0; font-size: 24px; }
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
             font-size: 14px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-            font-size: 14px;
-        }
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         .remember-forgot {
             display: flex;
@@ -105,29 +69,7 @@
             text-decoration: none;
             font-weight: 500;
         }
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-        button[type="submit"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        button[type="submit"]:active {
-            transform: translateY(0);
-        }
+        .forgot-link:hover { text-decoration: underline; }
         .divider {
             display: flex;
             align-items: center;
@@ -141,9 +83,7 @@
             flex: 1;
             border-bottom: 1px solid #e1e1e1;
         }
-        .divider span {
-            padding: 0 15px;
-        }
+        .divider span { padding: 0 15px; }
         .signup-link {
             text-align: center;
             font-size: 14px;
@@ -154,21 +94,7 @@
             text-decoration: none;
             font-weight: 600;
         }
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-        .msg {
-            margin-bottom: 20px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            display: none;
-            font-size: 14px;
-        }
-        .error {
-            background: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
-        }
+        .signup-link a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -182,9 +108,9 @@
             <h1>Welcome Back</h1>
             <p class="subtitle">Sign in to access the admission portal</p>
         </div>
-        
+
         <div id="message" class="msg"></div>
-        
+
         <form id="loginForm">
             <div class="form-group">
                 <label for="email">Email Address</label>
@@ -201,46 +127,27 @@
                 </label>
                 <a href="#" class="forgot-link">Forgot password?</a>
             </div>
-            <button type="submit">Sign In</button>
+            <button type="submit" class="btn-primary">Sign In</button>
         </form>
-        
+
         <div class="divider"><span>or</span></div>
-        
+
         <p class="signup-link">
             Don't have an account? <a href="index.html">Apply Now</a>
         </p>
     </div>
 
+    <script src="/static/js/utils.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const messageDiv = document.getElementById('message');
-            messageDiv.style.display = 'none';
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    // Store token and redirect
-                    localStorage.setItem('auth_token', result.token);
-                    window.location.href = '/dashboard.html';
-                } else {
-                    throw new Error(result.error || 'Invalid credentials');
-                }
-            } catch (err) {
-                messageDiv.textContent = err.message;
-                messageDiv.className = 'msg error';
-                messageDiv.style.display = 'block';
+        setupFormSubmit(
+            'loginForm',
+            '/api/login',
+            ['email', 'password'],
+            function(result) {
+                localStorage.setItem('auth_token', result.token);
+                window.location.href = '/dashboard.html';
             }
-        });
+        );
     </script>
 </body>
 </html>
