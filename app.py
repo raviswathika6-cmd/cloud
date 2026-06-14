@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-import os
+
+from utils import success_response, error_response, get_json_data, get_required_fields
 
 app = Flask(__name__, static_folder='.')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///admissions.db'
@@ -46,46 +47,50 @@ def login():
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
-    data = request.json
-    email = data.get('email')
-    password = data.get('password')
-    
-    # Simple authentication (replace with real auth logic)
-    if email and password:
-        # For demo purposes, accept any credentials
-        # Add your actual authentication logic here
-        return jsonify({
-            "message": "Login successful",
-            "token": "demo_token_" + email,
-            "user": {"email": email}
-        }), 200
-    else:
-        return jsonify({"error": "Invalid credentials"}), 401
+    data = get_json_data()
+    values, err = get_required_fields(data, ['email', 'password'])
+    if err:
+        return error_response(err, 401)
+
+    return success_response({
+        "message": "Login successful",
+        "token": "demo_token_" + values['email'],
+        "user": {"email": values['email']}
+    })
 
 @app.route('/api/apply', methods=['POST'])
 def submit_application():
-    data = request.json
+    data = get_json_data()
+    required = ['first_name', 'last_name', 'email', 'date_of_birth',
+                'high_school', 'gpa', 'major', 'essay']
+    values, err = get_required_fields(data, required)
+    if err:
+        return error_response(err)
+
     try:
         new_app = Application(
-            first_name=data['first_name'],
-            last_name=data['last_name'],
-            email=data['email'],
-            date_of_birth=data['date_of_birth'],
-            high_school=data['high_school'],
-            gpa=float(data['gpa']),
-            major=data['major'],
-            essay=data['essay']
+            first_name=values['first_name'],
+            last_name=values['last_name'],
+            email=values['email'],
+            date_of_birth=values['date_of_birth'],
+            high_school=values['high_school'],
+            gpa=float(values['gpa']),
+            major=values['major'],
+            essay=values['essay']
         )
         db.session.add(new_app)
         db.session.commit()
-        return jsonify({"message": "Application submitted successfully", "id": new_app.id}), 201
+        return success_response(
+            {"message": "Application submitted successfully", "id": new_app.id},
+            status_code=201
+        )
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return error_response(str(e))
 
 @app.route('/api/applications', methods=['GET'])
 def get_applications():
     apps = Application.query.all()
-    return jsonify([a.to_dict() for a in apps])
+    return success_response([a.to_dict() for a in apps])
 
 if __name__ == '__main__':
     with app.app_context():
