@@ -84,24 +84,37 @@
                 essay: document.getElementById('essay').value
             };
 
+            let response;
             try {
-                const response = await fetch('/api/apply', {
+                response = await fetch('/api/apply', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
+            } catch (networkErr) {
+                messageDiv.textContent = 'Network error: unable to reach the server. Please check your connection.';
+                messageDiv.className = 'msg error';
+                messageDiv.style.display = 'block';
+                return;
+            }
 
-                const result = await response.json();
-                if (response.ok) {
-                    messageDiv.textContent = 'Application submitted successfully! Application ID: ' + result.id;
-                    messageDiv.className = 'msg success';
-                    messageDiv.style.display = 'block';
-                    document.getElementById('admissionForm').reset();
-                } else {
-                    throw new Error(result.error || 'Submission failed');
-                }
-            } catch (err) {
-                messageDiv.textContent = 'Error: ' + err.message;
+            let result;
+            try {
+                result = await response.json();
+            } catch (parseErr) {
+                messageDiv.textContent = 'Error: received an invalid response from the server.';
+                messageDiv.className = 'msg error';
+                messageDiv.style.display = 'block';
+                return;
+            }
+
+            if (response.ok) {
+                messageDiv.textContent = 'Application submitted successfully! Application ID: ' + result.id;
+                messageDiv.className = 'msg success';
+                messageDiv.style.display = 'block';
+                document.getElementById('admissionForm').reset();
+            } else {
+                messageDiv.textContent = 'Error: ' + (result.error || 'Submission failed');
                 messageDiv.className = 'msg error';
                 messageDiv.style.display = 'block';
             }
