@@ -3,243 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - College Admission Portal</title>
+    <title>Login - Chronos Watch Shop</title>
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0;
             padding: 20px;
         }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+        }
+
         .login-container {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
         }
-        .logo {
+
+        .login-header {
+            background: linear-gradient(135deg, #d4af37 0%, #c4a027 100%);
+            padding: 40px 30px;
             text-align: center;
-            margin-bottom: 30px;
+            position: relative;
         }
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+
+        .login-header::before {
+            content: '⌚';
+            font-size: 48px;
+            display: block;
             margin-bottom: 15px;
         }
-        .logo-icon svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
+
+        .shop-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
         }
-        h1 {
-            text-align: center;
-            color: #333;
-            margin: 0 0 10px 0;
-            font-size: 24px;
+
+        .shop-tagline {
+            font-size: 13px;
+            color: rgba(26, 26, 46, 0.7);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 14px;
+
+        .login-body {
+            padding: 35px;
         }
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
+
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            color: #333;
+            color: #1a1a2e;
             font-size: 14px;
+            letter-spacing: 0.5px;
         }
+
         input[type="email"],
         input[type="password"] {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 14px 16px;
+            border: 2px solid #e8e8e8;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
         }
+
         input[type="email"]:focus,
         input[type="password"]:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #d4af37;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
-        .remember-forgot {
+
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #999;
+        }
+
+        .form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
             font-size: 14px;
         }
+
         .remember-me {
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #667eea;
-        }
-        .forgot-link {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .forgot-link:hover {
-            text-decoration: underline;
-        }
-        button[type="submit"] {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-        }
-        button[type="submit"]:active {
-            transform: translateY(0);
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: #999;
-            font-size: 14px;
-        }
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            border-bottom: 1px solid #e1e1e1;
-        }
-        .divider span {
-            padding: 0 15px;
-        }
-        .signup-link {
-            text-align: center;
-            font-size: 14px;
             color: #666;
         }
-        .signup-link a {
-            color: #667eea;
+
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #d4af37;
+        }
+
+        .forgot-password {
+            color: #d4af37;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
         }
-        .signup-link a:hover {
-            text-decoration: underline;
+
+        .forgot-password:hover {
+            opacity: 0.8;
         }
-        .msg {
-            margin-bottom: 20px;
-            padding: 12px 15px;
-            border-radius: 8px;
-            display: none;
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #d4af37 0%, #c4a027 100%);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 28px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e8e8e8;
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 12px;
+            color: #999;
+            font-size: 13px;
+            position: relative;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #666;
             font-size: 14px;
         }
-        .error {
+
+        .signup-link a {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            opacity: 0.8;
+        }
+
+        .error-message {
             background: #fee;
             color: #c33;
-            border: 1px solid #fcc;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #c33;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            border-left: 4px solid #3c3;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #d4af37;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 480px) {
+            .login-body {
+                padding: 25px;
+            }
+
+            .login-header {
+                padding: 30px 20px;
+            }
+
+            .shop-name {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
-                </svg>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="shop-name">CHRONOS</div>
+                <div class="shop-tagline">Luxury Watch Collections</div>
             </div>
-            <h1>Welcome Back</h1>
-            <p class="subtitle">Sign in to access the admission portal</p>
+
+            <div class="login-body">
+                <div class="error-message" id="errorMsg"></div>
+                <div class="success-message" id="successMsg"></div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
+                    <div class="loading" id="loading">
+                        <span class="spinner"></span>Signing in...
+                    </div>
+                </form>
+
+                <div class="divider"><span>New to Chronos?</span></div>
+
+                <div class="signup-link">
+                    <a href="#">Create an account</a>
+                </div>
+            </div>
         </div>
-        
-        <div id="message" class="msg"></div>
-        
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="your.email@example.com" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" required>
-            </div>
-            <div class="remember-forgot">
-                <label class="remember-me">
-                    <input type="checkbox" id="remember">
-                    <span>Remember me</span>
-                </label>
-                <a href="#" class="forgot-link">Forgot password?</a>
-            </div>
-            <button type="submit">Sign In</button>
-        </form>
-        
-        <div class="divider"><span>or</span></div>
-        
-        <p class="signup-link">
-            Don't have an account? <a href="index.html">Apply Now</a>
-        </p>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const messageDiv = document.getElementById('message');
-            messageDiv.style.display = 'none';
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const rememberMeCheckbox = document.getElementById('rememberMe');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+        const loading = document.getElementById('loading');
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        // Load saved email if "Remember me" was previously checked
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedEmail = localStorage.getItem('chronos_saved_email');
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberMeCheckbox.checked = true;
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Clear messages
+            errorMsg.classList.remove('show');
+            successMsg.classList.remove('show');
+            errorMsg.textContent = '';
+            successMsg.textContent = '';
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // Basic validation
+            if (!email || !password) {
+                showError('Please fill in all fields');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+
+            // Save email if "Remember me" is checked
+            if (rememberMeCheckbox.checked) {
+                localStorage.setItem('chronos_saved_email', email);
+            } else {
+                localStorage.removeItem('chronos_saved_email');
+            }
+
+            // Show loading state
+            loginBtn.disabled = true;
+            loading.classList.add('show');
 
             try {
                 const response = await fetch('/api/login', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
                 });
 
-                const result = await response.json();
+                const data = await response.json();
+
                 if (response.ok) {
-                    // Store token and redirect
-                    localStorage.setItem('auth_token', result.token);
-                    window.location.href = '/dashboard.html';
+                    // Save token to localStorage
+                    localStorage.setItem('chronos_token', data.token);
+                    localStorage.setItem('chronos_user', JSON.stringify(data.user));
+                    
+                    showSuccess('Login successful! Redirecting...');
+                    
+                    // Redirect after a short delay
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1500);
                 } else {
-                    throw new Error(result.error || 'Invalid credentials');
+                    showError(data.error || 'Login failed. Please try again.');
+                    loginBtn.disabled = false;
+                    loading.classList.remove('show');
                 }
-            } catch (err) {
-                messageDiv.textContent = err.message;
-                messageDiv.className = 'msg error';
-                messageDiv.style.display = 'block';
+            } catch (error) {
+                showError('An error occurred. Please try again.');
+                console.error('Login error:', error);
+                loginBtn.disabled = false;
+                loading.classList.remove('show');
             }
+        });
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(message) {
+            errorMsg.textContent = message;
+            errorMsg.classList.add('show');
+        }
+
+        function showSuccess(message) {
+            successMsg.textContent = message;
+            successMsg.classList.add('show');
+        }
+
+        // Clear error/success messages when user starts typing
+        emailInput.addEventListener('input', () => {
+            errorMsg.classList.remove('show');
+            successMsg.classList.remove('show');
+        });
+
+        passwordInput.addEventListener('input', () => {
+            errorMsg.classList.remove('show');
+            successMsg.classList.remove('show');
+        });
+
+        // Handle "Forgot password?" link
+        document.querySelector('.forgot-password').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Password reset functionality would be implemented here.');
+        });
+
+        // Handle "Create an account" link
+        document.querySelector('.signup-link a').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Sign up page would be implemented here.');
         });
     </script>
 </body>
