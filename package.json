@@ -1,0 +1,16 @@
+{
+  "name": "toggle-switch-component",
+  "version": "1.0.0",
+  "description": "A simple toggle switch component using Express and vanilla JS",
+  "main": "toggle-server.js",
+  "scripts": {
+    "start": "node toggle-server.js",
+    "dev": "node toggle-server.js"
+  },
+  "keywords": ["toggle", "switch", "component"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
