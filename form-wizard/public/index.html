@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Wizard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="wizard-wrapper">
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="steps-indicator">
+          <div class="step-dot active" id="step1Dot" data-step="1">1</div>
+          <div class="step-dot" id="step2Dot" data-step="2">2</div>
+          <div class="step-dot" id="step3Dot" data-step="3">3</div>
+        </div>
+        <div class="steps-label">
+          <span class="step-label active" id="step1Label">Personal Details</span>
+          <span class="step-label" id="step2Label">Preferences</span>
+          <span class="step-label" id="step3Label">Confirmation</span>
+        </div>
+      </div>
+
+      <!-- Form Container -->
+      <form id="wizardForm" class="wizard-form">
+        <!-- Step 1: Personal Details -->
+        <div class="form-step active" id="step1" data-step="1">
+          <h2>Step 1: Personal Details</h2>
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+            <span class="error-message" id="nameError"></span>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email address"
+              required
+            />
+            <span class="error-message" id="emailError"></span>
+          </div>
+        </div>
+
+        <!-- Step 2: Preferences -->
+        <div class="form-step" id="step2" data-step="2">
+          <h2>Step 2: Choose Your Plan</h2>
+          <div class="plans-container">
+            <div class="plan-option">
+              <input
+                type="radio"
+                id="plan-basic"
+                name="plan"
+                value="basic"
+                required
+              />
+              <label for="plan-basic" class="plan-label">
+                <h3>Basic Plan</h3>
+                <p class="price">$9/month</p>
+                <ul class="features">
+                  <li>✓ 5 Projects</li>
+                  <li>✓ Basic Support</li>
+                  <li>✓ 5GB Storage</li>
+                  <li>✗ API Access</li>
+                </ul>
+              </label>
+            </div>
+
+            <div class="plan-option">
+              <input
+                type="radio"
+                id="plan-professional"
+                name="plan"
+                value="professional"
+                required
+              />
+              <label for="plan-professional" class="plan-label">
+                <h3>Professional Plan</h3>
+                <p class="price">$29/month</p>
+                <ul class="features">
+                  <li>✓ Unlimited Projects</li>
+                  <li>✓ Priority Support</li>
+                  <li>✓ 100GB Storage</li>
+                  <li>✓ API Access</li>
+                </ul>
+              </label>
+            </div>
+
+            <div class="plan-option">
+              <input
+                type="radio"
+                id="plan-enterprise"
+                name="plan"
+                value="enterprise"
+                required
+              />
+              <label for="plan-enterprise" class="plan-label">
+                <h3>Enterprise Plan</h3>
+                <p class="price">Custom</p>
+                <ul class="features">
+                  <li>✓ Unlimited Everything</li>
+                  <li>✓ 24/7 Support</li>
+                  <li>✓ Unlimited Storage</li>
+                  <li>✓ Advanced API Access</li>
+                </ul>
+              </label>
+            </div>
+          </div>
+          <span class="error-message" id="planError"></span>
+        </div>
+
+        <!-- Step 3: Confirmation -->
+        <div class="form-step" id="step3" data-step="3">
+          <h2>Step 3: Confirmation Summary</h2>
+          <div class="summary-container">
+            <div class="summary-section">
+              <h3>Personal Details</h3>
+              <div class="summary-item">
+                <span class="label">Name:</span>
+                <span class="value" id="summaryName">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Email:</span>
+                <span class="value" id="summaryEmail">-</span>
+              </div>
+            </div>
+
+            <div class="summary-section">
+              <h3>Selected Plan</h3>
+              <div class="summary-item">
+                <span class="label">Plan:</span>
+                <span class="value" id="summaryPlan">-</span>
+              </div>
+              <div class="summary-item">
+                <span class="label">Price:</span>
+                <span class="value" id="summaryPrice">-</span>
+              </div>
+            </div>
+
+            <div class="summary-section">
+              <p class="confirmation-text">
+                By clicking Submit, you agree to our Terms of Service and Privacy Policy.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="button-group">
+          <button
+            type="button"
+            id="backBtn"
+            class="btn btn-secondary"
+            style="display: none;"
+          >
+            ← Back
+          </button>
+          <button
+            type="button"
+            id="nextBtn"
+            class="btn btn-primary"
+          >
+            Next →
+          </button>
+          <button
+            type="submit"
+            id="submitBtn"
+            class="btn btn-success"
+            style="display: none;"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-banner" style="display: none;">
+      <div class="success-content">
+        <h2>✓ Success!</h2>
+        <p>Your form has been submitted successfully. Thank you!</p>
+        <button onclick="location.reload()" class="btn btn-primary">
+          Start Over
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
