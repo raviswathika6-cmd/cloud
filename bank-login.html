@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexaBank — Secure Login</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      background: #0a1628;
+      color: #1e293b;
+    }
+
+    /* ── Left panel ── */
+    .left-panel {
+      flex: 1;
+      background: linear-gradient(145deg, #0f2952 0%, #0a1f42 40%, #061530 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 60px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      top: -100px; left: -100px;
+      pointer-events: none;
+    }
+
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+      bottom: -80px; right: -60px;
+      pointer-events: none;
+    }
+
+    .bank-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 64px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 16px rgba(59,130,246,0.4);
+    }
+
+    .logo-text {
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-text span { color: #3b82f6; }
+
+    .hero-heading {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-heading em {
+      font-style: normal;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .trust-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .badge-info strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .badge-info span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+
+    /* ── Right panel ── */
+    .right-panel {
+      width: 480px;
+      flex-shrink: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 52px;
+      box-shadow: -20px 0 60px rgba(0,0,0,0.3);
+    }
+
+    .login-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .login-sub {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 14px 13px 42px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 15px;
+      color: #0f172a;
+      background: #f8fafc;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: #3b82f6;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
+    }
+
+    .form-group input::placeholder { color: #94a3b8; }
+
+    /* Password toggle */
+    .toggle-pw {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #94a3b8;
+      font-size: 16px;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: #3b82f6; }
+
+    /* Row: remember + forgot */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #475569;
+      user-select: none;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      font-size: 13px;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover { color: #1d4ed8; }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-login:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,0.45); }
+    .btn-login:active { transform: translateY(0); }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    /* OTP / biometric row */
+    .alt-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .alt-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 500;
+      color: #374151;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .alt-btn:hover { border-color: #3b82f6; background: #eff6ff; color: #1d4ed8; }
+
+    /* Register */
+    .register-row {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .register-row a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .register-row a:hover { text-decoration: underline; }
+
+    /* Security badge strip */
+    .security-strip {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .security-strip svg { color: #10b981; }
+
+    /* Error message */
+    .error-msg {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      font-size: 13px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      align-items: center;
+      gap: 8px;
+    }
+    .error-msg.show { display: flex; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .left-panel { display: none; }
+      .right-panel { width: 100%; max-width: 480px; margin: auto; box-shadow: none; }
+      body { background: #f1f5f9; }
+    }
+
+    @media (max-width: 480px) {
+      .right-panel { padding: 40px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="bank-logo">
+      <div class="logo-icon">🏦</div>
+      <div class="logo-text">Nexa<span>Bank</span></div>
+    </div>
+
+    <h1 class="hero-heading">
+      Banking made<br /><em>simple & secure</em>
+    </h1>
+    <p class="hero-sub">
+      Access your accounts, transfer funds, pay bills, and manage investments — all from one place, protected by bank-grade security.
+    </p>
+
+    <div class="trust-badges">
+      <div class="badge">
+        <div class="badge-icon">🔒</div>
+        <div class="badge-info">
+          <strong>256-bit SSL Encryption</strong>
+          <span>All data is encrypted end-to-end</span>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">🛡️</div>
+        <div class="badge-info">
+          <strong>FDIC Insured</strong>
+          <span>Deposits insured up to $250,000</span>
+        </div>
+      </div>
+      <div class="badge">
+        <div class="badge-icon">📱</div>
+        <div class="badge-info">
+          <strong>Two-Factor Authentication</strong>
+          <span>Extra layer of account protection</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <h2 class="login-title">Welcome back</h2>
+    <p class="login-sub">Sign in to your NexaBank account</p>
+
+    <!-- Error message -->
+    <div class="error-msg" id="errorMsg">
+      <span>⚠️</span>
+      <span id="errorText">Invalid credentials. Please try again.</span>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <!-- Account Number / User ID -->
+      <div class="form-group">
+        <label for="userId">Account Number / User ID</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input
+            type="text"
+            id="userId"
+            name="userId"
+            placeholder="Enter your User ID"
+            autocomplete="username"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔑</span>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          />
+          <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">👁️</button>
+        </div>
+      </div>
+
+      <!-- Options row -->
+      <div class="form-options">
+        <label class="remember-me">
+          <input type="checkbox" id="rememberMe" />
+          Remember this device
+        </label>
+        <a href="#" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-login">
+        <span>🔓</span> Sign In Securely
+      </button>
+    </form>
+
+    <div class="divider">OR CONTINUE WITH</div>
+
+    <div class="alt-login">
+      <button class="alt-btn" type="button">
+        📱 OTP Login
+      </button>
+      <button class="alt-btn" type="button">
+        🪪 Card Number
+      </button>
+    </div>
+
+    <div class="register-row">
+      New to NexaBank? <a href="#">Open an Account</a>
+    </div>
+
+    <div class="security-strip">
+      <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Secured with 256-bit encryption &nbsp;·&nbsp; Session expires automatically
+    </div>
+  </div>
+
+  <script>
+    // Password toggle
+    const togglePw = document.getElementById('togglePw');
+    const pwInput  = document.getElementById('password');
+
+    togglePw.addEventListener('click', () => {
+      const show = pwInput.type === 'password';
+      pwInput.type = show ? 'text' : 'password';
+      togglePw.textContent = show ? '🙈' : '👁️';
+    });
+
+    // Form submit — demo validation
+    const form     = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+    const errorTxt = document.getElementById('errorText');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorMsg.classList.remove('show');
+
+      const userId = document.getElementById('userId').value.trim();
+      const pass   = pwInput.value;
+
+      if (!userId || !pass) {
+        errorTxt.textContent = 'Please enter your User ID and password.';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      if (pass.length < 6) {
+        errorTxt.textContent = 'Password must be at least 6 characters.';
+        errorMsg.classList.add('show');
+        return;
+      }
+
+      // Simulate loading
+      const btn = form.querySelector('.btn-login');
+      btn.textContent = '⏳ Authenticating…';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        // Demo: show success for userId "demo" + any password
+        if (userId.toLowerCase() === 'demo') {
+          btn.textContent = '✅ Redirecting to Dashboard…';
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '<span>🔓</span> Sign In Securely';
+          errorTxt.textContent = 'Invalid User ID or password. Please try again.';
+          errorMsg.classList.add('show');
+        }
+      }, 1400);
+    });
+  </script>
+</body>
+</html>
