@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Menu Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+    }
+    .menu {
+      background: #333;
+    }
+    .menu ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .menu li {
+      position: relative;
+    }
+    .menu > ul > li {
+      flex: 1;
+    }
+    .menu a {
+      display: block;
+      padding: 14px 20px;
+      color: #fff;
+      text-decoration: none;
+    }
+    .menu a:hover {
+      background: #575757;
+    }
+    .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #444;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 150px;
+      z-index: 1000;
+    }
+    .submenu li a {
+      padding: 10px;
+      color: #fff;
+    }
+    .submenu li a:hover {
+      background: #575757;
+    }
+    /* Responsive: stack menu on mobile */
+    @media (max-width: 600px) {
+      .menu ul {
+        flex-direction: column;
+      }
+      .menu > ul > li {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="menu">
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li class="has-submenu">
+      <a href="#">Services &#9662;</a>
+      <ul class="submenu">
+        <li><a href="#">Web Design</a></li>
+        <li><a href="#">Development</a></li>
+        <li><a href="#">SEO</a></li>
+      </ul>
+    </li>
+    <li><a href="#">About</a></li>
+    <li class="has-submenu">
+      <a href="#">Contact &#9662;</a>
+      <ul class="submenu">
+        <li><a href="#">Email</a></li>
+        <li><a href="#">Phone</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var triggers = document.querySelectorAll('.has-submenu > a');
+    triggers.forEach(function(trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        var submenu = this.nextElementSibling;
+        var isVisible = submenu.style.display === 'block';
+        // Hide all other submenus
+        document.querySelectorAll('.submenu').forEach(function(sm) {
+          sm.style.display = 'none';
+        });
+        submenu.style.display = isVisible ? 'none' : 'block';
+      });
+    });
+    // Close submenu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.menu')) {
+        document.querySelectorAll('.submenu').forEach(function(sm) {
+          sm.style.display = 'none';
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
