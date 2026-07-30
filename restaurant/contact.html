@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Spicy Kitchen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">🌶️</div>
+          <div class="logo-text">Spicy<span>Kitchen</span></div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="menu.html" class="btn btn-primary nav-order-btn">Order Now</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PAGE HERO ═══════════════ -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <h1>Get in <span style="color:var(--primary)">Touch</span></h1>
+      <p>We'd love to hear from you — reservations, catering, or just a hello!</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span>Contact</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT SECTION ═══════════════ -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Info Column -->
+        <div class="contact-info">
+          <h3>Visit or Reach Us</h3>
+          <p>Whether you want to book a table, inquire about catering, or simply want to know more — our team is always happy to help.</p>
+
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-card-icon">📍</div>
+              <div class="info-card-text">
+                <h4>Our Location</h4>
+                <p>123 Spice Street, Flavour City<br>FC 10001, United States</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-icon">📞</div>
+              <div class="info-card-text">
+                <h4>Phone Number</h4>
+                <p>+1 (555) 123-4567<br>+1 (555) 765-4321 (Catering)</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-icon">✉️</div>
+              <div class="info-card-text">
+                <h4>Email Address</h4>
+                <p>hello@spicykitchen.com<br>catering@spicykitchen.com</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-icon">🕐</div>
+              <div class="info-card-text">
+                <h4>Opening Hours</h4>
+                <p>Monday – Friday: 11:00 AM – 10:00 PM<br>Saturday – Sunday: 10:00 AM – 11:00 PM</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-card-icon">🚗</div>
+              <div class="info-card-text">
+                <h4>Parking</h4>
+                <p>Free parking available in our dedicated lot behind the restaurant.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Column -->
+        <div class="contact-form-wrap">
+          <h3>Send Us a Message</h3>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" placeholder="John" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Doe" required />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" placeholder="john@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject *</label>
+              <select id="subject" name="subject" required>
+                <option value="" disabled selected>Select a topic…</option>
+                <option value="reservation">Table Reservation</option>
+                <option value="catering">Catering Inquiry</option>
+                <option value="feedback">Feedback</option>
+                <option value="complaint">Complaint</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-row" id="reservationFields" style="display:none;">
+              <div class="form-group">
+                <label for="resDate">Preferred Date</label>
+                <input type="date" id="resDate" name="resDate" />
+              </div>
+              <div class="form-group">
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" name="guests" placeholder="2" min="1" max="50" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message *</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us how we can help you…" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">
+              🌶️ Send Message
+            </button>
+          </form>
+
+          <!-- Success state -->
+          <div class="form-success">
+            <div class="success-icon">🎉</div>
+            <h4>Message Sent!</h4>
+            <p>Thank you for reaching out. Our team will get back to you within 24 hours.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MAP SECTION ═══════════════ -->
+  <section class="map-section">
+    <div class="container">
+      <h2 class="section-title">Find <span>Us Here</span></h2>
+      <p class="section-subtitle">Located in the heart of Flavour City — easy to find, impossible to forget.</p>
+      <div class="map-wrap">
+        <div class="map-icon">🗺️</div>
+        <h4>123 Spice Street, Flavour City</h4>
+        <p>Interactive map coming soon — use the address above for directions.</p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">
+          Open in Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FAQ ═══════════════ -->
+  <section style="padding: 0 0 80px;">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+      <p class="section-subtitle">Quick answers to your most common questions.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;max-width:960px;margin:0 auto;">
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">🍽️</div>
+            <h4 class="info-card-text" style="margin:0;">Do you accept walk-ins?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">Yes! Walk-ins are always welcome, though we recommend booking ahead on weekends to guarantee your table.</p>
+        </div>
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">🌱</div>
+            <h4 class="info-card-text" style="margin:0;">Do you have vegan options?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">Absolutely! We offer a dedicated vegetarian and vegan menu. Just let your server know and we'll guide you.</p>
+        </div>
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">🚚</div>
+            <h4 class="info-card-text" style="margin:0;">Do you offer delivery?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">Yes! We deliver within a 10-mile radius. You can place orders via our website or popular delivery apps.</p>
+        </div>
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">🎂</div>
+            <h4 class="info-card-text" style="margin:0;">Can you cater private events?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">We'd love to! Contact us with event details and we'll put together a custom catering package for you.</p>
+        </div>
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">🌶️</div>
+            <h4 class="info-card-text" style="margin:0;">Can I customise spice levels?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">Of course! Most dishes can be adjusted from mild to extra spicy. Just inform your server when ordering.</p>
+        </div>
+
+        <div class="info-card" style="flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div class="info-card-icon">💳</div>
+            <h4 class="info-card-text" style="margin:0;">What payment methods do you accept?</h4>
+          </div>
+          <p style="color:var(--muted);font-size:.88rem;">We accept all major credit/debit cards, Apple Pay, Google Pay, and cash. No surcharges applied.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:4px;">
+            <div class="logo-icon">🌶️</div>
+            <div class="logo-text">Spicy<span>Kitchen</span></div>
+          </a>
+          <p>Bold flavours, fresh ingredients, and a passion for great food. <em>"Love the Food."</em></p>
+          <div class="social-links">
+            <a href="#" class="social-link">📘</a>
+            <a href="#" class="social-link">📸</a>
+            <a href="#" class="social-link">🐦</a>
+            <a href="#" class="social-link">🎵</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Our Menu</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">Reservations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="menu.html">Starters</a></li>
+            <li><a href="menu.html">Main Course</a></li>
+            <li><a href="menu.html">Grills</a></li>
+            <li><a href="menu.html">Desserts</a></li>
+            <li><a href="menu.html">Drinks</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><span class="ico">📍</span>123 Spice Street, Flavour City, FC 10001</li>
+            <li><span class="ico">📞</span>+1 (555) 123-4567</li>
+            <li><span class="ico">✉️</span>hello@spicykitchen.com</li>
+            <li><span class="ico">🕐</span>Mon–Sun: 11:00 AM – 11:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 <span>Spicy Kitchen</span>. All rights reserved.</p>
+        <p>Made with ❤️ and lots of 🌶️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Show/hide reservation fields based on subject selection
+    const subjectSelect = document.getElementById('subject');
+    const reservationFields = document.getElementById('reservationFields');
+    if (subjectSelect) {
+      subjectSelect.addEventListener('change', () => {
+        reservationFields.style.display =
+          subjectSelect.value === 'reservation' ? 'grid' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>

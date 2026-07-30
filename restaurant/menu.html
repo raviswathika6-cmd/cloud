@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — Spicy Kitchen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="logo-icon">🌶️</div>
+          <div class="logo-text">Spicy<span>Kitchen</span></div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html" class="active">Menu</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" class="btn btn-primary nav-order-btn">Reserve Table</a></li>
+        </ul>
+        <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ PAGE HERO ═══════════════ -->
+  <section class="page-hero">
+    <div class="page-hero-content">
+      <h1>Our <span style="color:var(--primary)">Menu</span></h1>
+      <p>From fiery starters to heavenly desserts — there's something for every palate.</p>
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <span>Menu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MENU ═══════════════ -->
+  <section class="menu-section">
+    <div class="container">
+
+      <!-- Filter Buttons -->
+      <div class="menu-filters" role="tablist" aria-label="Menu categories">
+        <button class="filter-btn active" data-filter="all">🍽️ All Items</button>
+        <button class="filter-btn" data-filter="starters">🥗 Starters</button>
+        <button class="filter-btn" data-filter="mains">🍲 Main Course</button>
+        <button class="filter-btn" data-filter="grills">🔥 Grills</button>
+        <button class="filter-btn" data-filter="rice">🍛 Rice &amp; Biryani</button>
+        <button class="filter-btn" data-filter="desserts">🍮 Desserts</button>
+        <button class="filter-btn" data-filter="drinks">🥤 Drinks</button>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="menu-grid">
+
+        <!-- ─── STARTERS ─── -->
+        <div class="menu-card" data-category="starters">
+          <div class="menu-card-img">🥗</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Spicy Chicken Wings</h3>
+              <span class="menu-card-price">$9.99</span>
+            </div>
+            <p>Crispy wings coated in our signature buffalo-sriracha sauce with a side of blue cheese dip.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-spicy">🌶️ Spicy</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <div class="menu-card-img">🥙</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Tandoori Seekh Kebab</h3>
+              <span class="menu-card-price">$11.99</span>
+            </div>
+            <p>Minced lamb blended with aromatic herbs, skewered and chargrilled in a traditional tandoor oven.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <div class="menu-card-img">🥜</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Crispy Paneer Tikka</h3>
+              <span class="menu-card-price">$10.49</span>
+            </div>
+            <p>Marinated cottage cheese cubes grilled to perfection, served with mint chutney.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <div class="menu-card-img">🦐</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Chilli Prawn Tempura</h3>
+              <span class="menu-card-price">$13.99</span>
+            </div>
+            <p>Juicy tiger prawns in a light tempura batter, drizzled with a sweet chilli dipping sauce.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-new">✨ New</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="starters">
+          <div class="menu-card-img">🧅</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Masala Onion Rings</h3>
+              <span class="menu-card-price">$6.99</span>
+            </div>
+            <p>Golden rings coated in a spiced chickpea batter, served with tamarind chutney.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── MAIN COURSE ─── -->
+        <div class="menu-card" data-category="mains">
+          <div class="menu-card-img">🍲</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Spicy Chicken Curry</h3>
+              <span class="menu-card-price">$14.99</span>
+            </div>
+            <p>Tender chicken in a rich tomato & coconut sauce with our 12-spice blend. Served with basmati rice.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-spicy">🌶️ Spicy</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="mains">
+          <div class="menu-card-img">🫕</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Butter Chicken</h3>
+              <span class="menu-card-price">$15.49</span>
+            </div>
+            <p>Succulent chicken in a velvety tomato-cream sauce infused with aromatic fenugreek and cardamom.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="mains">
+          <div class="menu-card-img">🥘</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Palak Paneer</h3>
+              <span class="menu-card-price">$13.49</span>
+            </div>
+            <p>Fresh cottage cheese cubes in a smooth, spiced spinach gravy — a classic North Indian comfort dish.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="mains">
+          <div class="menu-card-img">🍝</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Dragon Noodles</h3>
+              <span class="menu-card-price">$12.99</span>
+            </div>
+            <p>Wok-tossed noodles in bold chilli-garlic sauce with seasonal vegetables, tofu, and sesame seeds.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Vegan</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="mains">
+          <div class="menu-card-img">🐟</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Chilli Ginger Fish</h3>
+              <span class="menu-card-price">$17.99</span>
+            </div>
+            <p>Pan-seared sea bass in a spiced ginger-lemon sauce, served with stir-fried vegetables and jasmine rice.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-new">✨ New</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── GRILLS ─── -->
+        <div class="menu-card" data-category="grills">
+          <div class="menu-card-img">🥩</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Volcano BBQ Ribs</h3>
+              <span class="menu-card-price">$22.99</span>
+            </div>
+            <p>Slow-smoked baby back ribs glazed with volcanic BBQ sauce — fall-off-the-bone tender perfection.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="grills">
+          <div class="menu-card-img">🍗</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Half Tandoori Chicken</h3>
+              <span class="menu-card-price">$18.49</span>
+            </div>
+            <p>Marinated in yogurt and 11 spices, charcoal grilled to smoky, juicy perfection. Served with naan.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-spicy">🌶️ Spicy</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="grills">
+          <div class="menu-card-img">🥓</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Mixed Grill Platter</h3>
+              <span class="menu-card-price">$28.99</span>
+            </div>
+            <p>A feast for two — seekh kebabs, tandoori chicken, lamb chops, and prawns, served with flatbreads & sides.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="grills">
+          <div class="menu-card-img">🌽</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Spiced Veggie Grill</h3>
+              <span class="menu-card-price">$14.49</span>
+            </div>
+            <p>Grilled peppers, mushrooms, courgette, and halloumi with chimichurri and a side of spiced couscous.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── RICE & BIRYANI ─── -->
+        <div class="menu-card" data-category="rice">
+          <div class="menu-card-img">🍛</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Lamb Biryani</h3>
+              <span class="menu-card-price">$16.99</span>
+            </div>
+            <p>Fragrant basmati layered with spiced lamb, saffron, caramelised onions, and rose water. Royalty in a bowl.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="rice">
+          <div class="menu-card-img">🫙</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Chicken Biryani</h3>
+              <span class="menu-card-price">$14.99</span>
+            </div>
+            <p>Juicy chicken pieces slow-cooked with aromatic spices and layered with saffron basmati rice.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-spicy">🌶️ Spicy</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="rice">
+          <div class="menu-card-img">🌾</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Vegetable Biryani</h3>
+              <span class="menu-card-price">$12.49</span>
+            </div>
+            <p>Seasonal vegetables and paneer slow-cooked with saffron rice, dry fruits, and whole spices.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Vegan</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="rice">
+          <div class="menu-card-img">🍚</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Prawn Fried Rice</h3>
+              <span class="menu-card-price">$15.99</span>
+            </div>
+            <p>Wok-tossed jasmine rice with juicy prawns, eggs, spring onions, and our special chilli sauce.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-new">✨ New</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── DESSERTS ─── -->
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-card-img">🍮</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Chilli Choc Lava Cake</h3>
+              <span class="menu-card-price">$8.99</span>
+            </div>
+            <p>Decadent dark chocolate with a molten chilli lava centre. Served warm with vanilla bean ice cream.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-new">✨ New</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-card-img">🍨</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Mango Lassi Kulfi</h3>
+              <span class="menu-card-price">$6.99</span>
+            </div>
+            <p>Traditional Indian ice cream with real Alphonso mango, cardamom, saffron, and pistachios.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-card-img">🧁</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Gulab Jamun</h3>
+              <span class="menu-card-price">$5.99</span>
+            </div>
+            <p>Soft milk-solid dumplings soaked in rosewater syrup, served warm with a scoop of saffron ice cream.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-chef">👨‍🍳 Chef's Pick</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="desserts">
+          <div class="menu-card-img">🫐</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Berry Panna Cotta</h3>
+              <span class="menu-card-price">$7.49</span>
+            </div>
+            <p>Silky vanilla panna cotta with a tangy mixed-berry compote and a hint of black pepper.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── DRINKS ─── -->
+        <div class="menu-card" data-category="drinks">
+          <div class="menu-card-img">🥭</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Mango Lassi</h3>
+              <span class="menu-card-price">$4.99</span>
+            </div>
+            <p>Thick, creamy yogurt blended with fresh Alphonso mango and a touch of cardamom. Chilled to perfection.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="drinks">
+          <div class="menu-card-img">🌶️</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Spicy Lemonade</h3>
+              <span class="menu-card-price">$3.99</span>
+            </div>
+            <p>Freshly squeezed lemon with jalapeño-infused syrup, mint, and sparkling water — dangerously refreshing.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-spicy">🌶️ Spicy</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="drinks">
+          <div class="menu-card-img">🍵</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Masala Chai</h3>
+              <span class="menu-card-price">$3.49</span>
+            </div>
+            <p>Traditional spiced milk tea brewed with ginger, cardamom, cinnamon, and cloves. Served hot or iced.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-veg">🌱 Veg</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="drinks">
+          <div class="menu-card-img">🧃</div>
+          <div class="menu-card-body">
+            <div class="menu-card-top">
+              <h3>Tamarind Cooler</h3>
+              <span class="menu-card-price">$4.49</span>
+            </div>
+            <p>Tangy tamarind extract blended with cumin, black salt, and sparkling water — a beloved South Asian classic.</p>
+            <div class="menu-card-footer">
+              <span class="menu-badge badge-new">✨ New</span>
+              <button class="add-btn" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CTA ═══════════════ -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Can't Decide? Let Our Chef Choose! 🔥</h2>
+      <p>Ask for the Chef's Surprise Platter — a curated selection of our finest dishes for the day.</p>
+      <a href="contact.html" class="btn" style="background:#fff;color:var(--primary);border-color:#fff;font-weight:700;">📅 Reserve Your Table</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="display:inline-flex;margin-bottom:4px;">
+            <div class="logo-icon">🌶️</div>
+            <div class="logo-text">Spicy<span>Kitchen</span></div>
+          </a>
+          <p>Bold flavours, fresh ingredients, and a passion for great food. <em>"Love the Food."</em></p>
+          <div class="social-links">
+            <a href="#" class="social-link">📘</a>
+            <a href="#" class="social-link">📸</a>
+            <a href="#" class="social-link">🐦</a>
+            <a href="#" class="social-link">🎵</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Our Menu</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">Reservations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Menu</h4>
+          <ul>
+            <li><a href="menu.html">Starters</a></li>
+            <li><a href="menu.html">Main Course</a></li>
+            <li><a href="menu.html">Grills</a></li>
+            <li><a href="menu.html">Desserts</a></li>
+            <li><a href="menu.html">Drinks</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul class="footer-contact">
+            <li><span class="ico">📍</span>123 Spice Street, Flavour City, FC 10001</li>
+            <li><span class="ico">📞</span>+1 (555) 123-4567</li>
+            <li><span class="ico">✉️</span>hello@spicykitchen.com</li>
+            <li><span class="ico">🕐</span>Mon–Sun: 11:00 AM – 11:00 PM</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 <span>Spicy Kitchen</span>. All rights reserved.</p>
+        <p>Made with ❤️ and lots of 🌶️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
