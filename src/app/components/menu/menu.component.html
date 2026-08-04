@@ -1,0 +1,165 @@
+<div class="menu-container">
+  <!-- Header -->
+  <header class="menu-header">
+    <div class="header-content">
+      <h1>🍽️ Hostel Menu</h1>
+      <p class="subtitle">Delicious food, freshly prepared every day</p>
+      <button class="cart-button" (click)="toggleCart()">
+        🛒 Cart ({{ getCartCount() }})
+      </button>
+    </div>
+  </header>
+
+  <!-- Search and Filter Section -->
+  <div class="search-filter-section">
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search menu items..."
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+        class="search-input"
+      />
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <div class="category-filters">
+      <button
+        *ngFor="let category of categories"
+        [class.active]="selectedCategory === category"
+        (click)="filterByCategory(category)"
+        class="category-button"
+      >
+        {{ category }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="content-wrapper">
+    <!-- Menu Items Grid -->
+    <div class="menu-items-section">
+      <div class="menu-grid">
+        <div *ngFor="let item of filteredItems" class="menu-card" [class.unavailable]="!item.available">
+          <div class="card-image-wrapper">
+            <img [src]="item.image" [alt]="item.name" class="card-image" />
+            <div *ngIf="!item.available" class="unavailable-badge">
+              Out of Stock
+            </div>
+          </div>
+
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="item-name">{{ item.name }}</h3>
+              <div class="rating">
+                <span class="star">★</span>
+                <span class="rating-value">{{ item.rating }}</span>
+              </div>
+            </div>
+
+            <p class="item-description">{{ item.description }}</p>
+
+            <div class="card-footer">
+              <div class="price">₹{{ item.price }}</div>
+              <button
+                class="add-to-cart-btn"
+                (click)="addToCart(item)"
+                [disabled]="!item.available"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <div *ngIf="filteredItems.length === 0" class="no-results">
+        <p>No items found. Try adjusting your search or filters.</p>
+      </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <aside class="cart-sidebar" [class.show]="showCart">
+      <div class="cart-header">
+        <h2>Shopping Cart</h2>
+        <button class="close-btn" (click)="toggleCart()">✕</button>
+      </div>
+
+      <div class="cart-content">
+        <div *ngIf="cart.length === 0" class="empty-cart">
+          <p>Your cart is empty</p>
+        </div>
+
+        <div *ngIf="cart.length > 0">
+          <div *ngFor="let cartItem of cart" class="cart-item">
+            <div class="cart-item-info">
+              <h4>{{ cartItem.item.name }}</h4>
+              <p class="cart-item-price">₹{{ cartItem.item.price }} each</p>
+            </div>
+
+            <div class="cart-item-controls">
+              <button
+                class="qty-btn"
+                (click)="updateQuantity(cartItem.item.id, cartItem.quantity - 1)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                [(ngModel)]="cartItem.quantity"
+                min="1"
+                class="qty-input"
+              />
+              <button
+                class="qty-btn"
+                (click)="updateQuantity(cartItem.item.id, cartItem.quantity + 1)"
+              >
+                +
+              </button>
+            </div>
+
+            <div class="cart-item-total">
+              ₹{{ cartItem.item.price * cartItem.quantity }}
+            </div>
+
+            <button
+              class="remove-btn"
+              (click)="removeFromCart(cartItem.item.id)"
+              title="Remove item"
+            >
+              🗑️
+            </button>
+          </div>
+
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span>₹{{ getTotalPrice() }}</span>
+            </div>
+            <div class="summary-row">
+              <span>Delivery:</span>
+              <span>Free</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total:</span>
+              <span>₹{{ getTotalPrice() }}</span>
+            </div>
+          </div>
+
+          <button class="place-order-btn" (click)="placeOrder()">
+            Place Order
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div *ngIf="showCart" class="cart-overlay" (click)="toggleCart()"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="menu-footer">
+    <p>&copy; 2024 Hostel Menu. Serving delicious meals with care. 🍳</p>
+  </footer>
+</div>
