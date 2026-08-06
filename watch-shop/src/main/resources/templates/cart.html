@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+    <title>Shopping Cart - LUXE WATCHES</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <section class="page-header">
+            <div class="container">
+                <h1>Shopping Cart</h1>
+                <p>Review your selected timepieces</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="cart-layout" th:if="${#lists.size(cartItems) > 0}">
+                    <div class="cart-items">
+                        <div class="cart-item" th:each="item : ${cartItems}">
+                            <div class="cart-item-image">
+                                <img th:src="${item.watch.imageUrl}" th:alt="${item.watch.brand + ' ' + item.watch.model}">
+                            </div>
+                            <div class="cart-item-details">
+                                <h3 th:text="${item.watch.brand + ' ' + item.watch.model}">Watch Name</h3>
+                                <p class="cart-item-price" th:text="'$' + ${#numbers.formatDecimal(item.watch.price, 1, 2)}">$0.00</p>
+                            </div>
+                            <div class="cart-item-quantity">
+                                <form th:action="@{/cart/update/{id}(id=${item.watch.id})}" method="post">
+                                    <input type="number" name="quantity" th:value="${item.quantity}" min="1" max="10" onchange="this.form.submit()">
+                                </form>
+                            </div>
+                            <div class="cart-item-subtotal">
+                                <span>Subtotal</span>
+                                <strong th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}">$0.00</strong>
+                            </div>
+                            <div class="cart-item-remove">
+                                <form th:action="@{/cart/remove/{id}(id=${item.watch.id})}" method="post">
+                                    <button type="submit" class="btn-icon"><i class="fas fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span th:text="'$' + ${#numbers.formatDecimal(total, 1, 2)}">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span>Free</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span th:text="'$' + ${#numbers.formatDecimal(total, 1, 2)}">$0.00</span>
+                        </div>
+                        <a href="/checkout" class="btn btn-primary btn-block">Proceed to Checkout</a>
+                        <a href="/catalog" class="btn btn-outline btn-block">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="empty-state" th:unless="${#lists.size(cartItems) > 0}">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Your cart is empty</h3>
+                    <p>Discover our exquisite collection of timepieces</p>
+                    <a href="/catalog" class="btn btn-primary">Browse Collection</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

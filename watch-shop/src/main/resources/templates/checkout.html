@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+    <title>Checkout - LUXE WATCHES</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <main th:fragment="content">
+        <section class="page-header">
+            <div class="container">
+                <h1>Checkout</h1>
+                <p>Complete your order</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <form id="checkout-form" th:action="@{/api/orders}" method="post" class="checkout-form">
+                    <div class="checkout-layout">
+                        <div class="checkout-main">
+                            <h2>Shipping Information</h2>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customerName">Full Name</label>
+                                    <input type="text" id="customerName" name="customerName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="customerEmail">Email</label>
+                                    <input type="email" id="customerEmail" name="customerEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customerPhone">Phone</label>
+                                    <input type="tel" id="customerPhone" name="customerPhone" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="shippingAddress">Shipping Address</label>
+                                <textarea id="shippingAddress" name="shippingAddress" rows="3" required></textarea>
+                            </div>
+
+                            <h2>Payment Details</h2>
+                            <div class="form-group">
+                                <label for="cardName">Name on Card</label>
+                                <input type="text" id="cardName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardNumber">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cardExpiry">Expiry Date</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/YY" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardCvc">CVC</label>
+                                    <input type="text" id="cardCvc" placeholder="123" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="checkout-summary">
+                            <h3>Order Summary</h3>
+                            <div class="order-items">
+                                <div class="order-item" th:each="item : ${cartItems}">
+                                    <span th:text="${item.watch.model + ' x' + item.quantity}">Watch x 1</span>
+                                    <span th:text="'$' + ${#numbers.formatDecimal(item.subtotal, 1, 2)}">$0.00</span>
+                                </div>
+                            </div>
+                            <div class="summary-divider"></div>
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span th:text="'$' + ${#numbers.formatDecimal(total, 1, 2)}">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping</span>
+                                <span>Free</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span th:text="'$' + ${#numbers.formatDecimal(total, 1, 2)}">$0.00</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">
+                                <i class="fas fa-lock"></i> Place Order
+                            </button>
+                            <p class="secure-note"><i class="fas fa-shield-alt"></i> Secure checkout</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <script>
+            document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = {
+                    customerName: document.getElementById('customerName').value,
+                    customerEmail: document.getElementById('customerEmail').value,
+                    customerPhone: document.getElementById('customerPhone').value,
+                    shippingAddress: document.getElementById('shippingAddress').value
+                };
+                
+                try {
+                    const response = await fetch('/api/orders', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(formData)
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Order placed successfully! Order ID: ' + result.orderId);
+                        window.location.href = '/';
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                } catch (error) {
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        </script>
+    </main>
+</body>
+</html>
