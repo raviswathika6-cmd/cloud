@@ -1,0 +1,271 @@
+openapi: 3.0.0
+info:
+  title: Cloud Admissions API
+  description: |
+    REST API for the Cloud Admissions System.
+    
+    **Base URL**: 
+    - Flask Backend: `http://localhost:5000`
+    - Node.js Frontend Server: `http://localhost:3000`
+    
+    **Note**: Currently, `/api/login` exists on both servers with different implementations.
+    See ADR-003 for consolidation plans.
+  version: 1.0.0
+  contact:
+    name: Development Team
+    email: dev@admissions.local
+
+servers:
+  - url: http://localhost:5000
+    description: Flask Backend (Primary API)
+  - url: http://localhost:3000
+    description: Node.js Frontend Server (Partial API)
+
+paths:
+  /api/login:
+    post:
+      summary: Authenticate user and retrieve access token
+      description: |
+        Accepts email and password credentials.
+        
+        **Current Implementation**: Returns demo token without validation.
+        See ADR-002 for security improvements.
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: user@example.com
+              password: password123
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              example:
+                message: "Login successful"
+                token: "demo_token_user@example.com"
+                user:
+                  email: "user@example.com"
+        '400':
+          description: Invalid request format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Invalid credentials (missing email or password)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "Invalid credentials"
+
+  /api/apply:
+    post:
+      summary: Submit a new student application
+      description: |
+        Creates a new application record in the database.
+        
+        **Validation**: Fields are required; GPA converted to float.
+        **Gotcha**: No authentication required; see ADR-004-Admission-Security.md
+      tags:
+        - Applications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationRequest'
+            example:
+              first_name: "John"
+              last_name: "Doe"
+              email: "john@example.com"
+              date_of_birth: "2005-06-15"
+              high_school: "Central High School"
+              gpa: 3.95
+              major: "Computer Science"
+              essay: "I am interested in computer science because..."
+      responses:
+        '201':
+          description: Application submitted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Application submitted successfully"
+                  id:
+                    type: integer
+                    example: 42
+        '400':
+          description: Missing required field or validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "'first_name' is a required property"
+
+  /api/applications:
+    get:
+      summary: Retrieve all applications
+      description: |
+        Returns a list of all submitted applications with full details.
+        
+        **Gotcha**: No pagination; all records returned (performance issue at scale).
+        See ADR-005-Pagination-Strategy.md
+      tags:
+        - Applications
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+              example:
+                - id: 1
+                  first_name: "John"
+                  last_name: "Doe"
+                  email: "john@example.com"
+                  date_of_birth: "2005-06-15"
+                  high_school: "Central High School"
+                  gpa: 3.95
+                  major: "Computer Science"
+                  essay: "..."
+                  status: "Pending"
+                  created_at: "2024-01-15T10:30:45.123456"
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          format: email
+          description: User email address
+        password:
+          type: string
+          minLength: 1
+          description: User password (plain text in current implementation)
+
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        token:
+          type: string
+          description: Authentication token (currently demo token without JWT validation)
+        user:
+          type: object
+          properties:
+            email:
+              type: string
+              format: email
+
+    ApplicationRequest:
+      type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - date_of_birth
+        - high_school
+        - gpa
+        - major
+        - essay
+      properties:
+        first_name:
+          type: string
+          maxLength: 50
+          description: Student first name
+        last_name:
+          type: string
+          maxLength: 50
+          description: Student last name
+        email:
+          type: string
+          format: email
+          maxLength: 120
+          description: Contact email address
+        date_of_birth:
+          type: string
+          format: date
+          description: Birth date (YYYY-MM-DD format assumed)
+        high_school:
+          type: string
+          maxLength: 100
+          description: High school name
+        gpa:
+          type: number
+          minimum: 0.0
+          maximum: 4.0
+          description: GPA (converted to float on backend)
+        major:
+          type: string
+          maxLength: 100
+          description: Intended major
+        essay:
+          type: string
+          minLength: 1
+          description: Personal essay or statement
+
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        date_of_birth:
+          type: string
+        high_school:
+          type: string
+        gpa:
+          type: number
+        major:
+          type: string
+        essay:
+          type: string
+        status:
+          type: string
+          enum:
+            - Pending
+            - Accepted
+            - Rejected
+            - Deferred
+          default: Pending
+          description: Application status
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
