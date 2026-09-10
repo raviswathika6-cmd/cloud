@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Expense Tracker</h1>
+      <p class="subtitle">Track your daily expenses</p>
+    </header>
+
+    <main>
+      <!-- Add Expense Form -->
+      <section class="form-section">
+        <h2>Add New Expense</h2>
+        <form id="expenseForm">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input 
+              type="text" 
+              id="description" 
+              name="description" 
+              placeholder="e.g., Coffee, Groceries" 
+              required
+            >
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="amount">Amount ($)</label>
+              <input 
+                type="number" 
+                id="amount" 
+                name="amount" 
+                placeholder="0.00" 
+                step="0.01" 
+                min="0"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input 
+                type="date" 
+                id="date" 
+                name="date" 
+                required
+              >
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary">Add Expense</button>
+        </form>
+      </section>
+
+      <!-- Expenses Table -->
+      <section class="table-section">
+        <h2>Expenses</h2>
+        <div class="table-wrapper">
+          <table id="expensesTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody id="expensesList">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Total Row -->
+        <div class="total-row">
+          <span class="total-label">Total:</span>
+          <span class="total-amount" id="totalAmount">$0.00</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
