@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+    <title>LUXE WATCHES - Premium Timepieces</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Timeless Elegance</h1>
+                <p>Discover our collection of exquisite timepieces crafted for those who appreciate the finer things</p>
+                <a href="/catalog" class="btn btn-primary">Explore Collection</a>
+            </div>
+        </section>
+
+        <!-- Featured Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Featured Timepieces</h2>
+                    <p>Handpicked masterpieces from our collection</p>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card" th:each="watch : ${featuredWatches}">
+                        <div class="product-image">
+                            <img th:src="${watch.imageUrl}" th:alt="${watch.brand + ' ' + watch.model}">
+                            <div class="product-overlay">
+                                <a th:href="@{/watch/{id}(id=${watch.id})}" class="btn btn-sm">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-brand" th:text="${watch.brand}">Brand</span>
+                            <h3 class="product-name" th:text="${watch.model}">Model</h3>
+                            <span class="product-price" th:text="'$' + ${#numbers.formatDecimal(watch.price, 1, 2)}">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="section bg-light">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Shop by Category</h2>
+                    <p>Find the perfect watch for every occasion</p>
+                </div>
+                <div class="categories-grid">
+                    <a href="/catalog?category=Luxury" class="category-card">
+                        <i class="fas fa-crown"></i>
+                        <h3>Luxury</h3>
+                        <p>Flagship timepieces</p>
+                    </a>
+                    <a href="/catalog?category=Sport" class="category-card">
+                        <i class="fas fa-stopwatch"></i>
+                        <h3>Sport</h3>
+                        <p>Performance driven</p>
+                    </a>
+                    <a href="/catalog?category=Dress" class="category-card">
+                        <i class="fas fa-gem"></i>
+                        <h3>Dress</h3>
+                        <p>Elegant classics</p>
+                    </a>
+                    <a href="/catalog?category=Casual" class="category-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Casual</h3>
+                        <p>Everyday luxury</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Products Preview -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>New Arrivals</h2>
+                    <p>The latest additions to our collection</p>
+                </div>
+                <div class="products-grid">
+                    <div class="product-card" th:each="watch : ${allWatches}">
+                        <div class="product-image">
+                            <img th:src="${watch.imageUrl}" th:alt="${watch.brand + ' ' + watch.model}">
+                            <div class="product-overlay">
+                                <a th:href="@{/watch/{id}(id=${watch.id})}" class="btn btn-sm">View Details</a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-brand" th:text="${watch.brand}">Brand</span>
+                            <h3 class="product-name" th:text="${watch.model}">Model</h3>
+                            <span class="product-price" th:text="'$' + ${#numbers.formatDecimal(watch.price, 1, 2)}">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-footer">
+                    <a href="/catalog" class="btn btn-outline">View All Watches</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

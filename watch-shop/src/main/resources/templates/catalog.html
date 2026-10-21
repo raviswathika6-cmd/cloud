@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="layout">
+<head>
+    <title>Collection - LUXE WATCHES</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <section class="page-header">
+            <div class="container">
+                <h1>Our Collection</h1>
+                <p>Browse our curated selection of premium timepieces</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="catalog-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters-sidebar">
+                        <h3>Categories</h3>
+                        <div class="filter-group">
+                            <a href="/catalog" class="filter-link" th:classappend="${selectedCategory == null ? 'active' : ''}">All Watches</a>
+                            <a href="/catalog?category=Luxury" class="filter-link" th:classappend="${selectedCategory == 'Luxury' ? 'active' : ''}">Luxury</a>
+                            <a href="/catalog?category=Sport" class="filter-link" th:classappend="${selectedCategory == 'Sport' ? 'active' : ''}">Sport</a>
+                            <a href="/catalog?category=Dress" class="filter-link" th:classappend="${selectedCategory == 'Dress' ? 'active' : ''}">Dress</a>
+                            <a href="/catalog?category=Casual" class="filter-link" th:classappend="${selectedCategory == 'Casual' ? 'active' : ''}">Casual</a>
+                        </div>
+                    </aside>
+
+                    <!-- Products Grid -->
+                    <div class="products-main">
+                        <div class="products-header">
+                            <p class="results-count"><span th:text="${#lists.size(watches)}">0</span> watches found</p>
+                        </div>
+                        <div class="products-grid" th:if="${#lists.size(watches) > 0}">
+                            <div class="product-card" th:each="watch : ${watches}">
+                                <div class="product-image">
+                                    <img th:src="${watch.imageUrl}" th:alt="${watch.brand + ' ' + watch.model}">
+                                    <div class="product-overlay">
+                                        <a th:href="@{/watch/{id}(id=${watch.id})}" class="btn btn-sm">View Details</a>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-brand" th:text="${watch.brand}">Brand</span>
+                                    <h3 class="product-name" th:text="${watch.model}">Model</h3>
+                                    <span class="product-category" th:text="${watch.category}">Category</span>
+                                    <span class="product-price" th:text="'$' + ${#numbers.formatDecimal(watch.price, 1, 2)}">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="empty-state" th:unless="${#lists.size(watches) > 0}">
+                            <i class="fas fa-search"></i>
+                            <h3>No watches found</h3>
+                            <p>Try selecting a different category</p>
+                            <a href="/catalog" class="btn btn-primary">View All Watches</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
